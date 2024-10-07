@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +11,7 @@ public class PipeSpawner : MonoBehaviour
     private GameObject pipe;
 
     private float timer;
+
     private void Start()
     {
         SpawnPipe();
