@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject gameOverCanvas;
 
+    public Action OnGameOver;
+    
     private void Awake()
     {
         if (Instance == null) {
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        OnGameOver?.Invoke();
         gameOverCanvas.SetActive(true);
 
         Time.timeScale = 0f;
