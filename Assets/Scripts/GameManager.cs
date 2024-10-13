@@ -1,4 +1,5 @@
 using System;
+using Tripledot.FlappyBird.Leaderboard.UnityDelivery.Views;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,9 +9,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject gameOverCanvas;
+    [SerializeField]
+    private UnityLeaderboardView leaderboardView;
 
     public Action OnGameOver;
-    
+
     private void Awake()
     {
         if (Instance == null) {
@@ -18,6 +21,19 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 1f;
+    }
+
+    private void Start()
+    {
+        leaderboardView.Init(() => {
+            /* TODO: Show main menu or something */
+        });
+        // TODO: Delete Example Usage
+        DependencyManager.Instance.LeaderboardService.Submit("Test1", 20);
+        DependencyManager.Instance.LeaderboardService.Submit("Test2", 30);
+        DependencyManager.Instance.LeaderboardService.Submit("Test3", 50);
+        DependencyManager.Instance.LeaderboardService.Submit("Test4", 40);
+        leaderboardView.Show();
     }
 
     public void GameOver()

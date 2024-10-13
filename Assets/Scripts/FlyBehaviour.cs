@@ -11,7 +11,7 @@ public class FlyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return)) {
+        if (Input.GetMouseButtonDown(0)) {
             rigidbody2d.velocity = Vector2.up * velocity;
         }
     }
