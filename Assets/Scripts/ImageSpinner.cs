@@ -8,26 +8,33 @@ public class ImageSpinner : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
+    private float rainbowTimer = 0.0f;
+
+    private void Start()
+    {
+        spriteRenderer.sharedMaterial.color = Color.white;
+    }
+
     // Update is called once per frame
     void Update()
     {
         //rotation of image
         gameObject.transform.Rotate(Vector3.forward, Time.deltaTime * rotationSpeed);
 
-        //RainbowColorTime(Time.deltaTime);
+        RainbowColorTime(Time.deltaTime);
     }
 
     void RainbowColorTime(float deltatime)
     {
-        //from RGB TO HUESV
-        Debug.Log("color of sprite before: " + spriteRenderer.color);
+        //from RGB TO HUESV makes rainbow color EZ
         Color.RGBToHSV(spriteRenderer.color, out float h, out float s, out float v);
-        v += deltatime;
-        if (v > 1.0f) {
-            v -= 1.0f;
-        }
         
-        spriteRenderer.color = Color.HSVToRGB(h, s, v);
-        Debug.Log("color of sprite after: " + spriteRenderer.color);
+        //Go through whole spectrum of colors in 5ish seconds
+        rainbowTimer += 50.0f * deltatime;
+        if (rainbowTimer >= 360.0f) {
+            rainbowTimer -= 360.0f;
+        }
+        h = rainbowTimer / 360.0f;
+        spriteRenderer.color = Color.HSVToRGB(h, 1.0f, 1.0f, false);
     }
 }
