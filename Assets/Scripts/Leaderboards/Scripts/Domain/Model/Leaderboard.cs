@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Newtonsoft.Json.Utilities;
+using UnityEngine;
 
 namespace Tripledot.FlappyBird.Leaderboard.Domain.Model
 {
@@ -55,8 +56,16 @@ namespace Tripledot.FlappyBird.Leaderboard.Domain.Model
         private LeaderboardPlayerData[] AddOrUpdatePlayer(string name, int score)
         {
             var playerIndex = PlayersData.IndexOf(playerData => playerData.Name.Equals(name));
-
             if (playerIndex >= 0) {
+                
+                // current score 3
+                // score 2
+                var currentScore = PlayersData[playerIndex].Score.Current;
+                if (currentScore >= score) {
+                    PlayersData[playerIndex] = PlayersData[playerIndex].SetScore(currentScore);
+                    return PlayersData;
+                }
+
                 PlayersData[playerIndex] = PlayersData[playerIndex].SetScore(score);
 
                 return PlayersData;

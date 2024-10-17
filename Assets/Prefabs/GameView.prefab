@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3725730929943125508}
   - component: {fileID: 8047804418409293041}
   - component: {fileID: 3286158766528527989}
+  - component: {fileID: 2460895022388356173}
   m_Layer: 0
   m_Name: Birb
   m_TagString: Player
@@ -186,6 +187,20 @@ MonoBehaviour:
   velocity: 2
   rotationSpeed: 10
   rigidbody2d: {fileID: 3725730929943125508}
+--- !u!114 &2460895022388356173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5492383875384948558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a3b36002d744793b8a216ee3debe47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5492383875384948558}
+  upperBoundOffset: 0
 --- !u!1 &5877277892886856373
 GameObject:
   m_ObjectHideFlags: 0

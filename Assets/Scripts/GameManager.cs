@@ -36,7 +36,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        DependencyManager.Instance.LeaderboardService.Submit(Nickname, CurrentScore);
+        if (!string.IsNullOrEmpty(Nickname)) {
+            DependencyManager.Instance.LeaderboardService.Submit(Nickname, CurrentScore);
+        }
         OnGameOver?.Invoke();
         gameOverCanvas.SetActive(true);
 
