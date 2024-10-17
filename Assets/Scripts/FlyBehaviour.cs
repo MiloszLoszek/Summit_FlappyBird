@@ -1,12 +1,13 @@
-using System;
 using UnityEngine;
 
 public class FlyBehaviour : MonoBehaviour
 {
     [SerializeField]
     private float velocity = 1.5f;
+
     [SerializeField]
     private float rotationSpeed = 10f;
+
     [SerializeField]
     private Rigidbody2D rigidbody2d;
 
@@ -17,7 +18,7 @@ public class FlyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return)) { 
+        if (Input.GetKeyDown(KeyCode.Return)) {
             rigidbody2d.velocity = Vector2.up * velocity;
         }
     }

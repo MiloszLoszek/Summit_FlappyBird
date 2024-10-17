@@ -7,12 +7,21 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public string Nickname => PlayerPrefs.HasKey("nickname") ? PlayerPrefs.GetString("nickname") : string.Empty;
+
+    [SerializeField]
+    private GameObject gameView;
+
+    [SerializeField]
+    private LobbyView lobbyView;
+
     [SerializeField]
     private GameObject gameOverCanvas;
     [SerializeField]
     private UnityLeaderboardView leaderboardView;
 
     public Action OnGameOver;
+    public int CurrentScore = 0;
 
     private void Awake()
     {
@@ -20,24 +29,14 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
+        gameView.SetActive(false);
         Time.timeScale = 1f;
-    }
-
-    private void Start()
-    {
-        leaderboardView.Init(() => {
-            /* TODO: Show main menu or something */
-        });
-        // TODO: Delete Example Usage
-        DependencyManager.Instance.LeaderboardService.Submit("Test1", 20);
-        DependencyManager.Instance.LeaderboardService.Submit("Test2", 30);
-        DependencyManager.Instance.LeaderboardService.Submit("Test3", 50);
-        DependencyManager.Instance.LeaderboardService.Submit("Test4", 40);
-        leaderboardView.Show();
+        lobbyView.Show();
     }
 
     public void GameOver()
     {
+        DependencyManager.Instance.LeaderboardService.Submit(Nickname, CurrentScore);
         OnGameOver?.Invoke();
         gameOverCanvas.SetActive(true);
 
@@ -47,5 +46,23 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void StartGame(string nickname)
+    {
+        PlayerPrefs.SetString("nickname", nickname);
+        lobbyView.Hide();
+        gameView.SetActive(true);
+    }
+
+    public void ShowLeaderboard()
+    {
+        leaderboardView.Init(() => { leaderboardView.Hide(); });
+        leaderboardView.Show();
+    }
+
+    public void HideLeaderboard()
+    {
+        leaderboardView.Hide();
     }
 }

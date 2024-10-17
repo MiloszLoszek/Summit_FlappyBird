@@ -33,6 +33,7 @@ public class Score : MonoBehaviour
     {
         score++;
         currentScoreText.text = score.ToString();
+        GameManager.Instance.CurrentScore = score;
         UpdateHighscore();
     }
 
